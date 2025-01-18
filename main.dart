@@ -1,4 +1,4 @@
-// Input data students
+// Student Management System
 import 'dart:convert';
 import 'dart:io';
 
@@ -49,7 +49,8 @@ class Student {
 
 void saveToFile(List<Student> students) {
   final file = File('data.json');
-  List<Map<String, dynamic>> jsonData = students.map((student) => student.toJson()).toList();
+  List<Map<String, dynamic>> jsonData =
+      students.map((student) => student.toJson()).toList();
   file.writeAsStringSync(jsonEncode(jsonData));
 }
 
@@ -68,14 +69,18 @@ void showTable(List<Student> students) {
   }
 
   print("\n--- List of Students ---");
-  print("+------+----------------------+------------+-----------+--------------------------+-------------------+");
-  print("| ID   | Name                 | Sex        | Age       | Address                  | Phone             |");
-  print("+------+----------------------+------------+-----------+--------------------------+-------------------+");
+  print(
+      "+------+----------------------+------------+-----------+--------------------------+-------------------+");
+  print(
+      "| ID   | Name                 | Sex        | Age       | Address                  | Phone             |");
+  print(
+      "+------+----------------------+------------+-----------+--------------------------+-------------------+");
   for (var student in students) {
     print(
         "| ${student.id.padRight(4)} | ${student.name.padRight(20)} | ${student.sex.padRight(10)} | ${student.age.toString().padRight(9)} | ${student.address.padRight(24)} | ${student.phoneNumber.padRight(17)} |");
   }
-  print("+------+----------------------+------------+-----------+--------------------------+-------------------+");
+  print(
+      "+------+----------------------+------------+-----------+--------------------------+-------------------+");
 }
 
 void main() {
@@ -111,7 +116,13 @@ void main() {
         stdout.write("Enter Student Phone Number: ");
         String phoneNumber = stdin.readLineSync()!;
 
-        students.add(Student(id: id, name: name, sex: sex, age: age, address: address, phoneNumber: phoneNumber));
+        students.add(Student(
+            id: id,
+            name: name,
+            sex: sex,
+            age: age,
+            address: address,
+            phoneNumber: phoneNumber));
         saveToFile(students);
         print("Student added successfully!");
         break;
@@ -129,84 +140,93 @@ void main() {
         break;
 
       case '4':
-  stdout.write("Enter Student ID to update: ");
-  String idToUpdate = stdin.readLineSync()!;
-  Student? student = students.firstWhere(
-    (student) => student.id == idToUpdate,
-    orElse: () => Student(
-      id: '',
-      name: '',
-      sex: '',
-      age: 0,
-      address: '',
-      phoneNumber: '',
-    ),
-  );
+        stdout.write("Enter Student ID to update: ");
+        String idToUpdate = stdin.readLineSync()!;
+        Student? student = students.firstWhere(
+          (student) => student.id == idToUpdate,
+          orElse: () => Student(
+            id: '',
+            name: '',
+            sex: '',
+            age: 0,
+            address: '',
+            phoneNumber: '',
+          ),
+        );
 
-  if (student.id.isNotEmpty) {
-    stdout.write("Do you want to update (1) one field or (2) all fields? (Enter 1 or 2): ");
-    String? option = stdin.readLineSync();
+        if (student.id.isNotEmpty) {
+          stdout.write(
+              "Do you want to update (1) one field or (2) all fields? (Enter 1 or 2): ");
+          String? option = stdin.readLineSync();
 
-    if (option == '1') {
-      stdout.write("Which field do you want to update? (name/sex/age/address/phone): ");
-      String? fieldToUpdate = stdin.readLineSync();
+          if (option == '1') {
+            stdout.write(
+                "Which field do you want to update? (name/sex/age/address/phone): ");
+            String? fieldToUpdate = stdin.readLineSync();
 
-      if (fieldToUpdate == 'name') {
-        stdout.write("Enter New Name (${student.name}): ");
-        String? newName = stdin.readLineSync();
-        student.name = newName!.isEmpty ? student.name : newName;
-      } else if (fieldToUpdate == 'sex') {
-        stdout.write("Enter New Sex (${student.sex}): ");
-        String? newSex = stdin.readLineSync();
-        student.sex = newSex!.isEmpty ? student.sex : newSex;
-      } else if (fieldToUpdate == 'age') {
-        stdout.write("Enter New Age (${student.age}): ");
-        String? newAgeStr = stdin.readLineSync();
-        student.age = newAgeStr!.isEmpty ? student.age : int.parse(newAgeStr);
-      } else if (fieldToUpdate == 'address') {
-        stdout.write("Enter New Address (${student.address}): ");
-        String? newAddress = stdin.readLineSync();
-        student.address = newAddress!.isEmpty ? student.address : newAddress;
-      } else if (fieldToUpdate == 'phone') {
-        stdout.write("Enter New Phone Number (${student.phoneNumber}): ");
-        String? newPhoneNumber = stdin.readLineSync();
-        student.phoneNumber = newPhoneNumber!.isEmpty ? student.phoneNumber : newPhoneNumber;
-      } else {
-        print("Invalid field.");
+            if (fieldToUpdate == 'name') {
+              stdout.write("Enter New Name (${student.name}): ");
+              String? newName = stdin.readLineSync();
+              student.name = newName!.isEmpty ? student.name : newName;
+            } else if (fieldToUpdate == 'sex') {
+              stdout.write("Enter New Sex (${student.sex}): ");
+              String? newSex = stdin.readLineSync();
+              student.sex = newSex!.isEmpty ? student.sex : newSex;
+            } else if (fieldToUpdate == 'age') {
+              stdout.write("Enter New Age (${student.age}): ");
+              String? newAgeStr = stdin.readLineSync();
+              student.age =
+                  newAgeStr!.isEmpty ? student.age : int.parse(newAgeStr);
+            } else if (fieldToUpdate == 'address') {
+              stdout.write("Enter New Address (${student.address}): ");
+              String? newAddress = stdin.readLineSync();
+              student.address =
+                  newAddress!.isEmpty ? student.address : newAddress;
+            } else if (fieldToUpdate == 'phone') {
+              stdout.write("Enter New Phone Number (${student.phoneNumber}): ");
+              String? newPhoneNumber = stdin.readLineSync();
+              student.phoneNumber = newPhoneNumber!.isEmpty
+                  ? student.phoneNumber
+                  : newPhoneNumber;
+            } else {
+              print("Invalid field.");
+              break;
+            }
+
+            print("Student's $fieldToUpdate updated successfully!");
+          } else if (option == '2') {
+            stdout.write("Enter New Name (${student.name}): ");
+            String? newName = stdin.readLineSync();
+
+            stdout.write("Enter New Sex (${student.sex}): ");
+            String? newSex = stdin.readLineSync();
+
+            stdout.write("Enter New Age (${student.age}): ");
+            String? newAgeStr = stdin.readLineSync();
+
+            stdout.write("Enter New Address (${student.address}): ");
+            String? newAddress = stdin.readLineSync();
+
+            stdout.write("Enter New Phone Number (${student.phoneNumber}): ");
+            String? newPhoneNumber = stdin.readLineSync();
+
+            student.name = newName!.isEmpty ? student.name : newName;
+            student.sex = newSex!.isEmpty ? student.sex : newSex;
+            student.age =
+                newAgeStr!.isEmpty ? student.age : int.parse(newAgeStr);
+            student.address =
+                newAddress!.isEmpty ? student.address : newAddress;
+            student.phoneNumber =
+                newPhoneNumber!.isEmpty ? student.phoneNumber : newPhoneNumber;
+
+            print("Student updated successfully!");
+          } else {
+            print("Invalid option.");
+          }
+        } else {
+          print("Student not found.");
+        }
         break;
-      }
-
-      print("Student's $fieldToUpdate updated successfully!");
-    } else if (option == '2') {
-      stdout.write("Enter New Name (${student.name}): ");
-      String? newName = stdin.readLineSync();
-
-      stdout.write("Enter New Sex (${student.sex}): ");
-      String? newSex = stdin.readLineSync();
-
-      stdout.write("Enter New Age (${student.age}): ");
-      String? newAgeStr = stdin.readLineSync();
-
-      stdout.write("Enter New Address (${student.address}): ");
-      String? newAddress = stdin.readLineSync();
-
-      stdout.write("Enter New Phone Number (${student.phoneNumber}): ");
-      String? newPhoneNumber = stdin.readLineSync();
-
-      student.name = newName!.isEmpty ? student.name : newName;
-      student.sex = newSex!.isEmpty ? student.sex : newSex;
-      student.age = newAgeStr!.isEmpty ? student.age : int.parse(newAgeStr);
-      student.address = newAddress!.isEmpty ? student.address : newAddress;
-      student.phoneNumber = newPhoneNumber!.isEmpty ? student.phoneNumber : newPhoneNumber;
-
-      print("Student updated successfully!");
-    } else {
-      print("Invalid option.");
-    }
-  } else {
-    print("Student not found.");
-  }
-  break;
 
       case '5':
         print("Exiting the program. Goodbye!");
